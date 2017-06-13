@@ -7,7 +7,7 @@ if [ -w "/host/opt/cni/bin/" ]; then
     echo "Wrote CNI binaries to /host/opt/cni/bin/";
 fi;
 
-TMP_CONF='/flannel.conf.tmp'
+TMP_CONF='/flannel.conf.default'
 # If specified, overwrite the network configuration file.
 if [ "${CNI_NETWORK_CONFIG:-}" != "" ]; then
 cat >$TMP_CONF <<EOF

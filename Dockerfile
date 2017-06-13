@@ -14,4 +14,4 @@ ADD dist/tuning /opt/cni/bin/tuning
 ADD dist/host-local /opt/cni/bin/host-local
 
 ADD install-cni.sh /install-cni.sh
-ADD flannel.conf.tmp /flannel.conf.tmp
+ADD flannel.conf.default /flannel.conf.default
