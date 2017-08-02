@@ -1,12 +1,11 @@
-CURL=curl -sSf
+CURL:=curl -sSf
 
-IMAGE_NAME := quay.io/coreos/flannel-cni
-VERSION ?= latest
-TAG ?= 0.1
-CNI_VERSION ?= v0.5.2
+FLANNEL_CNI_ROOT:=$(shell git rev-parse --show-toplevel)
+IMAGE_NAME:=quay.io/coreos/flannel-cni
+VERSION:=$(shell $FLANNEL_CNI_ROOT/scripts/git-version)
+CNI_VERSION?=v0.5.2
 
-
-all: dist build tag push
+all: release
 
 dist:
 	mkdir -p dist
@@ -16,12 +15,10 @@ dist:
 	$(CURL) -L https://github.com/projectcalico/cni-plugin/releases/download/v1.9.0/portmap -o dist/portmap
 	chmod +x dist/portmap
 
-build:
+docker-image: dist
 	docker build --no-cache -t $(IMAGE_NAME):$(VERSION) .
 
-tag:
-	docker tag $(IMAGE_NAME):$(VERSION) $(IMAGE_NAME):$(TAG)
+docker-push: docker-image
+	docker push $(IMAGE_NAME):$(VERSION)
 
-push:
-	docker push $(IMAGE_NAME):$(TAG)
-
+release: docker-push
