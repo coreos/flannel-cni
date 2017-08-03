@@ -9,7 +9,7 @@ pipeline {
         branch 'master'
       }
       environment {
-        QUAY = credentials('174f0169-803f-4840-8e07-b8bfa204f5c6')
+        QUAY = credentials('quay-io_flannel-cni')
       }
       steps {
         sh """
