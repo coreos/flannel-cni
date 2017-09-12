@@ -7,6 +7,12 @@
       "delegate": {
         "isDefaultGateway": true
       }
+    },
+    {
+      "type": "portmap",
+      "capabilities": {
+        "portMappings": true
+      }
     }
   ]
 }
