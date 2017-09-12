@@ -1,7 +1,0 @@
-{
-    "name": "cbr0",
-    "type": "flannel",
-    "delegate": {
-    "isDefaultGateway": true
-    }
-}
