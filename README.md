@@ -47,6 +47,22 @@ spec:
         tier: node
         k8s-app: flannel
     spec:
+      initContainers:
+      - name: install-cni
+        image: quay.io/coreos/flannel-cni:0.1
+        command: ["/install-cni.sh"]
+        env:
+        # The CNI network config to install on each node.
+        - name: CNI_NETWORK_CONFIG
+            valueFrom:
+            configMapKeyRef:
+                name: kube-flannel-cfg
+                key: cni-conf.json
+        volumeMounts:
+        - name: cni
+          mountPath: /etc/cni/net.d
+        - name: host-cni-bin
+          mountPath: /host/opt/cni/bin/
       containers:
       - name: kube-flannel
         image: quay.io/coreos/flannel:v0.7.1-amd64
@@ -73,21 +89,6 @@ spec:
           mountPath: /etc/cni/net.d
         - name: flannel-cfg
           mountPath: /etc/kube-flannel/
-      - name: install-cni
-        image: quay.io/coreos/flannel-cni:0.1
-        command: ["/install-cni.sh"]
-        env:
-        # The CNI network config to install on each node.
-        - name: CNI_NETWORK_CONFIG
-            valueFrom:
-            configMapKeyRef:
-                name: kube-flannel-cfg
-                key: cni-conf.json
-        volumeMounts:
-        - name: cni
-          mountPath: /etc/cni/net.d
-        - name: host-cni-bin
-          mountPath: /host/opt/cni/bin/
       hostNetwork: true
       tolerations:
       - key: node-role.kubernetes.io/master

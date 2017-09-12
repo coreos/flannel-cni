@@ -19,4 +19,6 @@ FILENAME=${CNI_CONF_NAME:-10-flannel.conf}
 mv $TMP_CONF /host/etc/cni/net.d/${FILENAME}
 echo "Wrote CNI config: $(cat /host/etc/cni/net.d/${FILENAME})"
 
-while :; do sleep 3600; done;
+if [ "${CNI_INSTALL_TYPE:-init}" == "container" ]; then
+    while :; do sleep 3600; done;
+fi
