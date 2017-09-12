@@ -15,4 +15,4 @@ ADD dist/host-local /opt/cni/bin/host-local
 ADD dist/vlan /opt/cni/bin/vlan
 
 ADD install-cni.sh /install-cni.sh
-ADD flannel.conf.default /flannel.conf.default
+ADD flannel.conflist.default /flannel.conflist.default
