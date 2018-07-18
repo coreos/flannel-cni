@@ -79,7 +79,7 @@ spec:
         env:
         # The CNI network config to install on each node.
         - name: CNI_NETWORK_CONFIG
-            valueFrom:
+          valueFrom:
             configMapKeyRef:
                 name: kube-flannel-cfg
                 key: cni-conf.json
