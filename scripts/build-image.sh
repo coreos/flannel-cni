@@ -10,12 +10,14 @@ ARCH=$(uname -m)
 case $ARCH in
        aarch64)
                ARCHITECTURE=arm64
+	       $VERSION=$VERSION-$ARCHITECTURE
                ;;
        x86_64)
                ARCHITECTURE=amd64
                ;;
        *)
                ARCHITECTURE=$ARCH
+	       $VERSION=$VERSION-$ARCHITECTURE
                ;;
 esac
 
